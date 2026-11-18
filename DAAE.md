@@ -22,4 +22,75 @@ Our evaluation across two widely used datasets and seven state-of-the-art (SOTA)
  - We propose DAAE, a novel framework that combines LCS alignment and an FS-DAAE model to identify and remove dummy packets from defended traces. By leveraging class-specific packet sequence features and learned packet masks, DAAE aims to recover the underlying traffic patterns while reducing the need for extensive unlabeled traces.
  - We conduct a comprehensive evaluation of DAAE on two widely used public datasets and against seven SOTA defense mechanisms, demonstrating its effectiveness in removing dummy packets and improving WF attack performance across diverse defense settings.
 
- - 
+## Threat Model and Problem Statement
+
+### Threat Model
+
+![Figure 1: Overview of the Tor network and Threat Model.](./images/threatmodel.png)
+Figure 1: Overview of the Tor network and Threat Model. 
+
+*Attack Scenario*： We consider the standard local passive adversary that monitors the communication network traffic between the Tor client and the entry guard but cannot modify traffic packets. As shown in Figure 1, potential adversaries include eavesdroppers on the client's local network, Internet service providers (ISPs), autonomous systems (ASes), and malicious Tor guard nodes. Although Tor encrypts traffic contents, these adversaries can observe traffic characteristics that may reveal information about the websites visited by the client.
+To defend against WF attacks, a WF defense can be deployed through a pluggable transport (PT) bridge, which operates between the Tor client and the entry guard and transforms observable traffic patterns before they traverse the monitored network path.
+
+*Attacker Capability*: We consider a strong adversary with access to defended traffic traces from monitored webpages collected under conditions comparable to those experienced by a normal user. We assume that the adversary can operate as a Tor user and collect both the original Tor traffic at the client side (① in Figure 1) and the corresponding defended traffic transmitted through the PT client and PT server (② in Figure 1). Additionally, the adversary can passively capture the victim's network traffic between the victim's device and the entry guard. Using the captured network traffic traces, the adversary can train WF classifiers under two attack strategies: *adversarial training*-based WF attacks and *$\mathcal{DAAE}$-based WF attacks. The former incorporates defended traffic into the training process to improve classification performance against the deployed defense, while the latter leverages a $\mathcal{DAAE}$-based approach to learn the dummy packet injection mechanism without knowledge of the defense algorithm, thereby facilitating website identification despite traffic transformations. By considering both strategies, we evaluate the effectiveness of $\mathcal{D}$-based WF attacks against WF defenses in the presence of defense-induced changes in traffic patterns.
+
+*Attacker Knowledge*: The $\mathcal{DAAE}$ does not require prior knowledge of the destination webpage. Thus, $\mathcal{DAAE}$ can be applied to arbitrary browsing webpages rather than a pre-configured set of static candidate traces. Additionally, PTs are independently deployed by users. Therefore, the defense for different users does not rely on the same predefined payloads or destination-specific configurations. In this setting, $\mathcal{DAAE}$ can avoid introducing stable, webpage-dependent artifacts that an adaptive adversary can learn.
+
+*Closed- and Open-World Scenarios*: WF attacks are commonly evaluated under closed-world and open-world scenarios. In the closed-world scenario, the client is assumed to visit only a predefined set of websites, referred to as *monitored* websites. The attacker has access to traffic traces collected from these websites and uses them to train a classifier to identify which monitored website the client visits. In contrast, the open-world scenario reflects a more realistic setting in which the client may visit either monitored websites or a much larger set of *unmonitored* websites. Since the attacker can obtain training traces for a subset of unmonitored websites, the goal is to determine whether the client's traffic corresponds to one of the monitored websites.
+
+### Problem Formulation
+
+Tor network traffic can be represented as a time-ordered sequence of packets. Since packet timing is sensitive to network conditions and user location, we focus exclusively on packet directions in this work. Formally, each traffic trace corresponding to the loading of a webpage is represented as:
+
+$$
+w = [d_1, d_2, \ldots, d_N]
+$$
+
+Here, $N$ is the total number of website packets observed during the session. $d_i \in \{+1, -1\}$ denotes the direction of the $i$-th packet. In particular, $+1$ denotes an outgoing packet, and $-1$ denotes an incoming packet.
+
+Let $\mathcal{W}$ denote the monitored websites and $\mathcal{X}$ denote the space of observable traffic. An adversary aims to learn a classification model:
+
+$$
+h: \mathcal{X} \rightarrow \mathcal{W}
+$$
+
+that predicts the specific website from an observed trace. The WF defense system can be regarded as a stochastic transformation mechanism:
+
+$$
+\mathcal{D}: \mathcal{X}' \rightarrow \mathcal{D}(\mathcal{X})
+$$
+
+where $\mathcal{D}(\mathcal{X})$ denotes a distribution over defended traces.
+
+$\mathcal{R} \subseteq \mathcal{X} \times \mathcal{X}'$ denotes the defense relation, where $(w, w') \in \mathcal{R}$ indicates that $w'$ is a valid defended trace generated from the original trace $w$ by the defense mechanism. A WF defense mechanism usually modifies $w$ to $w'$ by injecting dummy packets $d_i'$, where $i$ denotes the dummy packet's insertion position in the trace.
+
+In this work, we propose $\mathcal{D}$, a deep learning-based approach that learns defense-induced traffic transformation patterns from paired original and defended Tor traffic traces. Given a training dataset:
+
+$$
+\mathcal{S}_{\mathrm{train}} = \{(w_i, w_i')\}_{i=1}^{M}
+$$
+
+where each $w_i$ is an original trace and $w_i'$ is its corresponding defended trace, the model learns to identify the injected dummy packets and recover the original packet-direction sequence.
+
+After training, the model is applied to previously unseen defended traces to remove injected dummy packets and reconstruct the underlying original traffic. Formally, the recovery process is defined as:
+
+$$
+\hat{w} = \mathcal{G}(w')
+$$
+
+where $\mathcal{G}$ denotes the trained recovery model, and $\hat{w}$ is the recovered trace approximating the original trace $w$. The objective is to minimize the discrepancy between the recovered trace $\hat{w}$ and its original counterpart $w$, enabling the model to recover original traffic patterns from defended observations.
+
+Since $w$ and $w'$ are sequences of packet directions, and the defense mechanism preserves the original packets while inserting dummy packets, the original trace $w$ is a subsequence of the defended trace $w'$, denoted by:
+
+$$
+w \preceq w'
+$$
+
+Accordingly, the recovery model aims to identify and remove the injected dummy packets from $w'$ to reconstruct the original trace $w$.
+
+### Notation and Definitions
+
+![Table 1](./images/table1.png)
+
+Table 1 summarizes the key symbols and terminology used throughout this work. $B$ denotes the mini-batch size used during model training, which is set to 128 by default. $L$ represents the padded sequence length, with a default value of 10,000, ensuring that traffic traces can be processed in a consistent input format. $K$ denotes the number of support traces per class in the few-shot learning setting, which is set to 5 by default. The variable $\ell$ represents the actual length of a defended traffic trace before padding, satisfying $\ell \leq L$. Finally, $LCS$ stands for Longest Common Subsequence, a measure used to identify the longest sequence of elements shared by two sequences while preserving their relative order.
+

@@ -132,7 +132,7 @@ The proposed DAAE model is trained in a supervised few-shot setting (FS-DAAE) us
 
 *FS-DAAE Training Objective.* FS-DAAE is supervised by two signals derived from LCS alignment: a keep mask $\mathbf{M}$, where 1 indicates an original packet and 0 indicates a dummy packet, and a reconstruction target $\mathbf{x}^{\mathrm{target}}$ defined on the defended-trace timeline. At each matched position, the target contains the corresponding original packet direction. The unmatched dummy positions are assigned zero and excluded from reconstruction loss. A validity mask $V_{b,j}=\mathbb{1}[j<\ell_b]$, where $\ell_b$ is the valid length of query $b$, excludes padded positions from all loss terms.
 
-The overall FS-DAAE training objective combines three loss groups comprising four complementary components: $\mathcal{L}_{\mathrm{mask}}$, $\mathcal{L}_{\mathrm{recon}}$, and $\mathcal{L}_{\mathrm{len}}$. The total objective is:
+The overall FS-DAAE training objective combines three loss groups comprising four complementary components: $\mathcal{L}_{\text{mask}}$, $\mathcal{L}_{\text{recon}}$, and $\mathcal{L}_{\text{len}}$. The total objective is:
 
 $$
 \mathcal{L} = \lambda_{\mathrm{mask}}\mathcal{L}_{\mathrm{mask}} + \mathcal{L}_{\mathrm{recon}} + \mathcal{L}_{\mathrm{len}}

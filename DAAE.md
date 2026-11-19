@@ -123,3 +123,85 @@ $$
 By applying LCS-based alignment to each pair of original and defended traces, we can identify the positions of injected dummy packets in the defended trace. Based on the resulting alignment, we construct an **LCS-based keep mask** to label each packet in the defended trace: a value of 1 indicates that the packet corresponds to an original packet, whereas a value of 0 indicates that it is a dummy packet. The resulting keep masks serve as supervision labels for training the FS-DAAE model, enabling it to learn dummy packet injection patterns from a limited number of paired traces.
 
 The support LCS bank maintains a persistent, class-conditioned memory of aligned defended traces and their LCS-derived keep masks, enabling defended trace recovery without requiring the original capture of a query trace. For each website class, it stores up to $K$ training instances and provides two complementary views: a few-shot support set for model training and a class-specific prototype for decoding. The prototype is constructed from the longest retained original-packet subsequence among the support instances, while the maximum keep ratio across these instances serves as a class-specific target for calibrating insertion-only Viterbi decoding. Unlike a conventional classifier memory that stores learned embeddings, the support LCS bank preserves representative defended traffic patterns and their packet-level original/dummy labels. The detailed FS-DAAE model training process will be introduced in the next section.
+
+### FS-DAAE Model Training
+
+The proposed DAAE model is trained in a supervised few-shot setting (FS-DAAE) using paired original and defended Tor traces obtained during dataset preprocessing. Each training episode comprises a query trace and $K=5$ support traces sampled from the same website class, with the query excluded from support selection. Each pair is aligned using the LCS algorithm, providing packet-level supervision for distinguishing original packets from injected dummy packets.  This episodic formulation enables FS-DAAE to learn specific defense patterns across different visits without requiring the original trace of a query at inference time (defended trace recovery).
+
+*FS-DAAE architecture.* FS-DAAE employs a one-dimensional U-Net and a four-stage stride-2 encoder. The four-stage stride-2 encoder progressively reduces the input sequence length from $L=10000$ to $L/16=625$, while increasing the feature channels from 1 to 512. The query and support traces share encoder weights. At the bottleneck, the LCS-derived support masks are embedded into the support features, which are aggregated to form a class-conditioned representation. Feature-wise linear modulation and eight-head cross-attention then incorporate support information into the query representation. A skip-connected decoder restores the sequence to its original resolution, incorporating an averaged support keep prior at the finest scale. A four-branch dilated mask head with dilation rates $\{1,2,4,8\}$ captures packet-retention patterns at multiple receptive-field scales. An auxiliary reconstruction head predicts packet directions, while a pooled latent representation is learned implicitly through the network. The primary output is a sequence of mask logits $\mathbf{z}\in\mathbb{R}^{B\times L}$, where $B$ is the batch size, and the reconstruction head produces $\hat{\mathbf{x}}\in\mathbb{R}^{B\times L}$.
+
+*FS-DAAE Training Objective.* FS-DAAE is supervised by two signals derived from LCS alignment: a keep mask $\mathbf{M}$, where 1 indicates an original packet and 0 indicates a dummy packet, and a reconstruction target $\mathbf{x}^{\mathrm{target}}$ defined on the defended-trace timeline. At each matched position, the target contains the corresponding original packet direction. The unmatched dummy positions are assigned zero and excluded from reconstruction loss. A validity mask $V_{b,j}=\mathbb{1}[j<\ell_{b}]$, where $\ell_{b}$ is the valid length of query $b$, excludes padded positions from all loss terms.
+
+The overall FS-DAAE training objective combines three loss groups comprising four complementary components: $\mathcal{L}_{\mathrm{mask}}$, $\mathcal{L}_{\mathrm{recon}}$, and $\mathcal{L}_{\mathrm{len}}$. The total objective is:
+
+$$
+\mathcal{L} =
+\lambda_{\mathrm{mask}}\mathcal{L}_{\mathrm{mask}}
++ \mathcal{L}_{\mathrm{recon}}
++ \mathcal{L}_{\mathrm{len}},
+$$
+
+where the default weight $\lambda_{\mathrm{mask}}=2$. Specifically,
+
+$$
+\mathcal{L}_{\mathrm{mask}} =
+\mathcal{L}_{\mathrm{focal}}
++ \lambda_{\mathrm{dice}}\mathcal{L}_{\mathrm{dice}},
+$$
+
+where the default $\lambda_{\mathrm{dice}}$ is 0.5.
+
+**Reconstruction loss $\mathcal{L}_{\mathrm{recon}}$:**
+
+Mean squared error is evaluated only on LCS-kept, unpadded defended positions. Dummy and pad indices are excluded from both the numerator and the denominator:
+
+$$
+\mathcal{L}_{\mathrm{recon}} =
+\frac{
+\displaystyle\sum_{b=1}^{B}\sum_{j=0}^{L-1}
+V_{bj}M_{bj}
+\bigl(\hat{x}_{bj}-x^{\mathrm{target}}_{bj}\bigr)^2
+}{
+\displaystyle\sum_{b=1}^{B}\sum_{j=0}^{L-1}
+V_{bj}M_{bj}
+}.
+$$
+
+**Length loss $\mathcal{L}_{\mathrm{len}}$:**
+
+The predicted keep fraction is the mean of the *sigmoid probabilities* $p_{bj}$ over valid positions of each trace, not a count of thresholded decisions $\mathbb{1}[\sigma(z_{bj})\geq 0.5]$. With the time changed, the trace length will increase, so that:
+
+$$
+p^{\mathrm{t}}_{bj}
+=
+p_{bj}M_{bj}
++
+(1-p_{bj})(1-M_{bj}).
+$$
+
+For each $b$:
+
+$$
+\hat{r}_b =
+\frac{
+\displaystyle\sum_{j=0}^{L-1}p_{bj}V_{bj}
+}{
+\displaystyle\sum_{j=0}^{L-1}V_{bj}
+},
+\qquad
+r'_b =
+\frac{
+\displaystyle\sum_{j=0}^{L-1}M_{bj}V_{bj}
+}{
+\displaystyle\sum_{j=0}^{L-1}V_{bj}
+}.
+$$
+
+The length term is the batch-mean $\ell_1$ gap between these soft rates:
+
+$$
+\mathcal{L}_{\mathrm{len}} =
+\frac{1}{B}
+\sum_{b=1}^{B}
+\left|\hat{r}_b-r'_b\right|.
+$$

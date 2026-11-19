@@ -251,6 +251,9 @@ DAAE-based attack is designed for scenarios in which adversarial training-based 
 
 After performing the DAAE-based WF attacks, the results further highlight the robustness of Chameleon. Under $Chameleon_{rec}$, the F1-score of the DAAE-based DF attack only increases from 6.42% to 23.86%, while the same attack increases from 7.76% to 83.67% under the $Palette_{rec}$ defense. In particular, $Chameleon_{rec}$ limits the strongest attack, RF, to an F1-score of only 35.19%, while the corresponding scores for $Palette_{rec}$ and $Adaptive~Tamaraw_{rec}$ reach 70.30% and 88.22%, respectively. These results indicate that Chameleon remains robust and effective even when the attacker can reconstruct or retrain on defended traffic, confirming that its randomized morphing strategy provides stronger resistance to defense-aware attacks.
 
+
 ### Ablation Study
 
-## 
+#### DAAE Evaluation Without Paired Traces
+
+

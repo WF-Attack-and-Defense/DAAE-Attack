@@ -199,6 +199,20 @@ Finally, DAAE retains the directions of all defended packets selected by the dec
 
 ## Performance Evaluation
 
+### Implementation Details
+
+Table 5: Parameter settings for evaluating DAAE.
+
+![Table5](./images/table5.png)
+
+All experiments are conducted using PyTorch 2.8.0 and Python 3.10. To run and evaluate the performance of DAAE, training and evaluation were performed on a system equipped with an NVIDIA RTX PRO 6000 GPU (96 GB VRAM), an Intel Ultra 9 285K CPU, and 192 GB of system memory. The default parameter configurations are summarized in Table 5. We partition the dataset into training, validation, and testing sets using an 8:1:1 ratio. All parameter tuning and spatiotemporal analyses are conducted exclusively on the validation set to prevent information leakage from the test set and ensure an unbiased evaluation.
+
+### Detailed Dataset
+We conduct experiments on two widely used datasets: DF and GTT23. The DF dataset contains both closed-world and open-world data. In the DF closed-world dataset, traffic traces are collected from the homepages of the top 100 Alexa-ranked websites, of which 95 sites remain after preprocessing, with 1,000 instances per site. 
+In the open-world dataset, the unmonitored set is constructed from websites ranked within Alexa's top 50,000, excluding those used in the closed-world setting, resulting in 40,716 sites with one instance per site. All traces are collected using the Tor Browser Crawler, with network traffic captured independently via *tcpdump*.
+The GTT23 dataset is the first large-scale genuine website fingerprinting dataset collected from a Tor exit relay, containing approximately ($1.4\times10^{7}$) website visits from over ($1.1\times10^{6}$) domains. We use CELLSHIFT to construct the closed-world dataset with 100 domains, each containing 2,000 instances, and an additional ($1.0\times10^{5}$) domains for the open-world evaluation. 
+
+
 ### DAAE Decoding Strategy
 
 ![Figure 3](./images/figure3.png)
@@ -232,3 +246,7 @@ Table 4: A comprehensive comparison of AT-resistant defenses against DAAE-based 
 DAAE-based attack is designed for scenarios in which adversarial training-based WF cannot attack a defense. To evaluate the resistance of Chameleon to DAAE, we compare it with two SOTA defenses, Palette and Adaptive Tamaraw, which demonstrate strong resistance to adversarial training on the recent GTT23 dataset. We first use DAAE to reconstruct defended traces and then perform WF attacks using DF, Var-CNN, RF, and NetCLR implemented in the WFLib project to evaluate precision (P), recall (R), and F1-score (F1). Table 4 presents the performance of DAAE-based attacks against defenses that are resistant to adversarial training on the GTT23 dataset. Chameleon provides substantially stronger protection than the existing defenses, particularly when the attacker is trained on defended traffic. For the defense-trained setting $Chameleon_{def}$, Chameleon achieves F1-scores of 6.42%, 9.37%, 16.23%, and 5.97% against DF, Var-CNN, RF, and NetCLR, respectively. These results are consistently lower than those of $Palette_{def}$ and $Adaptive~Tamaraw_{def}$, demonstrating that Chameleon is robust and efficient in defending against adversarial training-based attacks.
 
 After performing the DAAE-based WF attacks, the results further highlight the robustness of Chameleon. Under $Chameleon_{rec}$, the F1-score of the DAAE-based DF attack only increases from 6.42% to 23.86%, while the same attack increases from 7.76% to 83.67% under the $Palette_{rec}$ defense. In particular, $Chameleon_{rec}$ limits the strongest attack, RF, to an F1-score of only 35.19%, while the corresponding scores for $Palette_{rec}$ and $Adaptive~Tamaraw_{rec}$ reach 70.30% and 88.22%, respectively. These results indicate that Chameleon remains robust and effective even when the attacker can reconstruct or retrain on defended traffic, confirming that its randomized morphing strategy provides stronger resistance to defense-aware attacks.
+
+### Ablation Study
+
+## 

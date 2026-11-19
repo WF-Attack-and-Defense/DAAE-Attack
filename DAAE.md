@@ -135,25 +135,18 @@ The proposed DAAE model is trained in a supervised few-shot setting (FS-DAAE) us
 The overall FS-DAAE training objective combines three loss groups comprising four complementary components: $\mathcal{L}_{\mathrm{mask}}$, $\mathcal{L}_{\mathrm{recon}}$, and $\mathcal{L}_{\mathrm{len}}$. The total objective is:
 
 $$
-\mathcal{L} =
-\lambda_{\mathrm{mask}}\mathcal{L}_{\mathrm{mask}}
-+ \mathcal{L}_{\mathrm{recon}}
-+ \mathcal{L}_{\mathrm{len}}
+\mathcal{L} = \lambda_{\mathrm{mask}}\mathcal{L}_{\mathrm{mask}} + \mathcal{L}_{\mathrm{recon}} + \mathcal{L}_{\mathrm{len}}
 $$
 
-where the default weight $\lambda_{\mathrm{mask}}=2$. Specifically,
+where the default weight is $\lambda_{\mathrm{mask}}=2$. Specifically,
 
 $$
-\mathcal{L}_{\mathrm{mask}} =
-\mathcal{L}_{\mathrm{focal}}
-+ \lambda_{\mathrm{dice}}\mathcal{L}_{\mathrm{dice}}
+\mathcal{L}_{\mathrm{mask}} = \mathcal{L}_{\mathrm{focal}} + \lambda_{\mathrm{dice}}\mathcal{L}_{\mathrm{dice}}
 $$
 
 where the default $\lambda_{\mathrm{dice}}$ is 0.5.
 
-**Reconstruction loss $\mathcal{L}_{\mathrm{recon}}$:**
-
-Mean squared error is evaluated only on LCS-kept, unpadded defended positions. Dummy and pad indices are excluded from both the numerator and the denominator:
+*Reconstruction loss $\mathcal{L}_{\mathrm{recon}}$:* Mean squared error is evaluated only on LCS-kept, unpadded defended positions. Dummy and pad indices are excluded from both the numerator and the denominator:
 
 $$
 \mathcal{L}_{\mathrm{recon}} =

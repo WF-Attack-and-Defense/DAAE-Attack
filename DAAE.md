@@ -94,3 +94,32 @@ Accordingly, the recovery model aims to identify and remove the injected dummy p
 
 Table 1 summarizes the key symbols and terminology used throughout this work. $B$ denotes the mini-batch size used during model training, which is set to 128 by default. $L$ represents the padded sequence length, with a default value of 10,000, ensuring that traffic traces can be processed in a consistent input format. $K$ denotes the number of support traces per class in the few-shot learning setting, which is set to 5 by default. The variable $\ell$ represents the actual length of a defended traffic trace before padding, satisfying $\ell \leq L$. Finally, $LCS$ stands for Longest Common Subsequence, a measure used to identify the longest sequence of elements shared by two sequences while preserving their relative order.
 
+## System Design
+
+![Architecture](./images/daae.png)
+Figure 2: An overview of the DAAE architecture.
+
+In this section, we demonstrate the design details of the DAAE. As shown in Figure 2, the proposed DAAE comprises three key phases: the dataset pre-processing phase, the few-shot-based DAAE (FS-DAAE) model training phase, and the defended trace recovery phase.
+
+### Dataset Pre-processing
+
+In this work, the proposed $\mathcal{D}$ aims to learn the dummy packet injection patterns of existing WF defense mechanisms by training a deep learning model on a small number of paired original and defended Tor traces. Considering that some defense mechanisms can double or even triple the length of a trace, we set the trace length to $L=10000$ to accommodate the additional packets introduced by these defenses.
+
+Let $\mathbf{x}^{\mathrm{ori}}=[d^{\mathrm{ori}}_1,\ldots,d^{\mathrm{ori}}_{n}]$ and $\mathbf{x}^{\mathrm{def}}=[d^{\mathrm{def}}_1,\ldots,d^{\mathrm{def}}_{m}]$ denote the direction sequences of the original and defended traces, respectively, where each direction is represented by an element of $\{\pm 1\}$ and $m\ge n$ in the typical case. Since the insertion of dummy packets shifts the positions of subsequent original packets, the two traces can no longer be aligned directly by packet index.
+
+To address this issue, DAAE formulates dummy packet identification as an **insertion-only sequence alignment problem** and employs the longest common subsequence (LCS) algorithm to align the two direction sequences. The LCS is computed using the following dynamic programming recurrence:
+
+$$
+\mathrm{LCS}[i,j] =
+\begin{cases}
+0, & \text{if } i=0 \text{ or } j=0,\\
+\mathrm{LCS}[i-1,j-1]+1,
+& \text{if } d^{\mathrm{ori}}_i = d^{\mathrm{def}}_j,\\
+\max\{\mathrm{LCS}[i-1,j],\,\mathrm{LCS}[i,j-1]\},
+& \text{otherwise}.
+\end{cases}
+$$
+
+By applying LCS-based alignment to each pair of original and defended traces, we can identify the positions of injected dummy packets in the defended trace. Based on the resulting alignment, we construct an **LCS-based keep mask** to label each packet in the defended trace: a value of 1 indicates that the packet corresponds to an original packet, whereas a value of 0 indicates that it is a dummy packet. The resulting keep masks serve as supervision labels for training the FS-DAAE model, enabling it to learn dummy packet injection patterns from a limited number of paired traces.
+
+The support LCS bank maintains a persistent, class-conditioned memory of aligned defended traces and their LCS-derived keep masks, enabling defended trace recovery without requiring the original capture of a query trace. For each website class, it stores up to $K$ training instances and provides two complementary views: a few-shot support set for model training and a class-specific prototype for decoding. The prototype is constructed from the longest retained original-packet subsequence among the support instances, while the maximum keep ratio across these instances serves as a class-specific target for calibrating insertion-only Viterbi decoding. Unlike a conventional classifier memory that stores learned embeddings, the support LCS bank preserves representative defended traffic patterns and their packet-level original/dummy labels. The detailed FS-DAAE model training process will be introduced in the next section.

@@ -32,9 +32,9 @@ Figure 1: Overview of the Tor network and Threat Model.
 *Attack Scenario*： We consider the standard local passive adversary that monitors the communication network traffic between the Tor client and the entry guard but cannot modify traffic packets. As shown in Figure 1, potential adversaries include eavesdroppers on the client's local network, Internet service providers (ISPs), autonomous systems (ASes), and malicious Tor guard nodes. Although Tor encrypts traffic contents, these adversaries can observe traffic characteristics that may reveal information about the websites visited by the client.
 To defend against WF attacks, a WF defense can be deployed through a pluggable transport (PT) bridge, which operates between the Tor client and the entry guard and transforms observable traffic patterns before they traverse the monitored network path.
 
-*Attacker Capability*: We consider a strong adversary with access to defended traffic traces from monitored webpages collected under conditions comparable to those experienced by a normal user. We assume that the adversary can operate as a Tor user and collect both the original Tor traffic at the client side (① in Figure 1) and the corresponding defended traffic transmitted through the PT client and PT server (② in Figure 1). Additionally, the adversary can passively capture the victim's network traffic between the victim's device and the entry guard. Using the captured network traffic traces, the adversary can train WF classifiers under two attack strategies: *adversarial training*-based WF attacks and *$\mathcal{DAAE}$-based WF attacks. The former incorporates defended traffic into the training process to improve classification performance against the deployed defense, while the latter leverages a $\mathcal{DAAE}$-based approach to learn the dummy packet injection mechanism without knowledge of the defense algorithm, thereby facilitating website identification despite traffic transformations. By considering both strategies, we evaluate the effectiveness of $\mathcal{DAAE}$-based WF attacks against WF defenses in the presence of defense-induced changes in traffic patterns.
+*Attacker Capability*: We consider a strong adversary with access to defended traffic traces from monitored webpages collected under conditions comparable to those experienced by a normal user. We assume that the adversary can operate as a Tor user and collect both the original Tor traffic at the client side (① in Figure 1) and the corresponding defended traffic transmitted through the PT client and PT server (② in Figure 1). Additionally, the adversary can passively capture the victim's network traffic between the victim's device and the entry guard. Using the captured network traffic traces, the adversary can train WF classifiers under two attack strategies: *adversarial training*-based WF attacks and *DAAE*-based WF attacks. The former incorporates defended traffic into the training process to improve classification performance against the deployed defense, while the latter leverages a *DAAE*-based approach to learn the dummy packet injection mechanism without knowledge of the defense algorithm, thereby facilitating website identification despite traffic transformations. By considering both strategies, we evaluate the effectiveness of*DAAE*-based WF attacks against WF defenses in the presence of defense-induced changes in traffic patterns.
 
-*Attacker Knowledge*: The $\mathcal{DAAE}$ does not require prior knowledge of the destination webpage. Thus, $\mathcal{DAAE}$ can be applied to arbitrary browsing webpages rather than a pre-configured set of static candidate traces. Additionally, PTs are independently deployed by users. Therefore, the defense for different users does not rely on the same predefined payloads or destination-specific configurations. In this setting, $\mathcal{DAAE}$ can avoid introducing stable, webpage-dependent artifacts that an adaptive adversary can learn.
+*Attacker Knowledge*: The *DAAE* does not require prior knowledge of the destination webpage. Thus, *DAAE* can be applied to arbitrary browsing webpages rather than a pre-configured set of static candidate traces. Additionally, PTs are independently deployed by users. Therefore, the defense for different users does not rely on the same predefined payloads or destination-specific configurations. In this setting, *DAAE* can avoid introducing stable, webpage-dependent artifacts that an adaptive adversary can learn.
 
 *Closed- and Open-World Scenarios*: WF attacks are commonly evaluated under closed-world and open-world scenarios. In the closed-world scenario, the client is assumed to visit only a predefined set of websites, referred to as *monitored* websites. The attacker has access to traffic traces collected from these websites and uses them to train a classifier to identify which monitored website the client visits. In contrast, the open-world scenario reflects a more realistic setting in which the client may visit either monitored websites or a much larger set of *unmonitored* websites. Since the attacker can obtain training traces for a subset of unmonitored websites, the goal is to determine whether the client's traffic corresponds to one of the monitored websites.
 
@@ -132,24 +132,24 @@ The proposed DAAE model is trained in a supervised few-shot setting (FS-DAAE) us
 
 *FS-DAAE Training Objective.* FS-DAAE is supervised by two signals derived from LCS alignment: a keep mask $\mathbf{M}$, where 1 indicates an original packet and 0 indicates a dummy packet, and a reconstruction target $\mathbf{x}^{\mathrm{target}}$ defined on the defended-trace timeline. At each matched position, the target contains the corresponding original packet direction. The unmatched dummy positions are assigned zero and excluded from reconstruction loss. A validity mask $V_{b,j}=\mathbb{1}[j<\ell_b]$, where $\ell_b$ is the valid length of query $b$, excludes padded positions from all loss terms.
 
-The overall FS-DAAE training objective combines three loss groups comprising four complementary components: $\mathcal{L}_{\text{mask}}$, $\mathcal{L}_{\text{recon}}$, and $\mathcal{L}_{\text{len}}$. The total objective is:
+The overall FS-DAAE training objective combines three loss groups comprising four complementary components: ℒ<sub>mask</sub>, ℒ<sub>recon</sub>, and ℒ<sub>len</sub>. The total objective is:
 
 $$
-\mathcal{L} = \lambda_{\mathrm{mask}}\mathcal{L}_{\mathrm{mask}} + \mathcal{L}_{\mathrm{recon}} + \mathcal{L}_{\mathrm{len}}
+ℒ = \lambda_{\mathrm{mask}}ℒ_{\mathrm{mask}} + ℒ_{\mathrm{recon}} + ℒ_{\mathrm{len}}
 $$
 
 where the default weight is $\lambda_{\mathrm{mask}}=2$. Specifically,
 
 $$
-\mathcal{L}_{\mathrm{mask}} = \mathcal{L}_{\mathrm{focal}} + \lambda_{\mathrm{dice}}\mathcal{L}_{\mathrm{dice}}
+ℒ_{\mathrm{mask}} = ℒ_{\mathrm{focal}} + \lambda_{\mathrm{dice}}ℒ_{\mathrm{dice}}
 $$
 
 where the default $\lambda_{\mathrm{dice}}$ is 0.5.
 
-*Reconstruction loss $\mathcal{L}_{\mathrm{recon}}$:* Mean squared error is evaluated only on LCS-kept, unpadded defended positions. Dummy and pad indices are excluded from both the numerator and the denominator:
+*Reconstruction loss ℒ<sub>recon</sub>:* Mean squared error is evaluated only on LCS-kept, unpadded defended positions. Dummy and pad indices are excluded from both the numerator and the denominator:
 
 $$
-\mathcal{L}_{\mathrm{recon}} =
+ℒ_{\mathrm{recon}} =
 \frac{
 \sum_{b=1}^{B}\sum_{j=0}^{L-1}
 V_{bj}M_{bj}
@@ -160,9 +160,7 @@ V_{bj}M_{bj}
 }
 $$
 
-**Length loss $\mathcal{L}_{\mathrm{len}}$:**
-
-The predicted keep fraction is the mean of the *sigmoid probabilities* $p_{bj}$ over valid positions of each trace, not a count of thresholded decisions $\mathbb{1}[\sigma(z_{bj})\geq 0.5]$. With the time changed, the trace length will increase, so that:
+*Length loss ℒ<sub>len</sub>:* The predicted keep fraction is the mean of the *sigmoid probabilities* $p_{bj}$ over valid positions of each trace, not a count of thresholded decisions $\mathbb{1}[\sigma(z_{bj})\geq 0.5]$. With the time changed, the trace length will increase, so that:
 
 $$
 p^{\mathrm{t}}_{bj} = p_{bj} M_{bj} + (1-p_{bj})(1-M_{bj})
@@ -188,3 +186,38 @@ $$
 \sum_{b=1}^{B}
 \left|\hat{r}_b-r'_b\right|
 $$
+
+### Defended Trace Recovery
+
+The recovery phase reconstructs original traffic traces from defended-only observations, without requiring access to the query's original trace during inference. It uses the FS-DAAE checkpoint selected by the highest validation mask accuracy and the persistent support LCS bank constructed from the training split. For each defended capture, packet directions are extracted and truncated to a maximum sequence length $L=10000$, with the valid trace length recorded separately. All support information comes exclusively from training data, ensuring that recovery does not depend on the query's original trace or validation/test samples.
+
+#### FS-DAAE inference. 
+The defended trace query will be passed through FS-DAAE in evaluation mode without gradient computation. The network applies the same support–query fusion used during training, including mask-conditioned support encoding, feature-wise linear modulation, cross-attention, and the U-Net decoder, to produce packet-level keep logits $\mathbf{z}\in\mathbb{R}^{ℒ}$. Although thresholding these logits at zero yields a straightforward binary keep mask, this strategy can retain isolated dummy packets or discard original packets. Therefore, the default recovery procedure uses insertion-only Viterbi decoding to exploit the structural constraint that the original direction sequence is a subsequence of the defended sequence.
+
+#### Trace Reconstruction.
+Finally, DAAE retains the directions of all defended packets selected by the decoded keep mask, discarding the remaining packets and preserving their original order. Recovery is performed independently of evaluation: original traces are used only for subsequent assessment, not for generating the recovered output. In particular, the reported recovery results use the support-bank and insertion-decoding pipeline without oracle access to the query original. This design enables DAAE to remove dummy packets by combining learned packet-level evidence, specific defense patterns, and insertion-constrained sequence alignment.
+
+## Performance Evaluation
+
+### DAAE Decoding Strategy
+
+![Figure 3](./images/figure3.png)
+
+At test time, DAAE does not have access to the original trace. Instead, it maintains a small support pool constructed from the training set and applies the same inference pipeline to the captured defended traffic.
+We designed two strategies to decode the defended packets into the original ones.
+We find that directly thresholding at 0.5 for the predicted keep probabilities can incorrectly remove original packets or retain dummy packets, disrupting the original packet-direction subsequence. Therefore, we perform a sequence-level decoding step against support prototypes, where each prototype represents the packet-direction sequence of the packets labeled as original in a support trace. We introduce a skip bias to control the trade-off between retaining and removing packets and select the bias that produces a keep rate closest to the median keep rate of the support set. When multiple supports are available, we first consider supports whose kept-trace lengths are closest to the target length and select the candidate yielding the best sequence-level decoding score. The recovered trace is then constructed by retaining the captured packets selected by the final mask. Finally, we train a standard WF classifier, such as DF and RF, on the recovered traces and evaluate its classification performance to quantify how effectively DAAE restores the fingerprint information removed by the defense.
+
+As shown in the third column of Figure 3, the recovered traces do not exactly match the originals, but much of their original traffic structure is restored. This result suggests that defense-induced traffic artifacts can be exploited to partially reverse the effect of traffic regularization, potentially undermining the defense against a sufficiently adaptive adversary. \figureautorefname~\ref{fig:motivation} demonstrates that the original non-defended traces show distinct patterns in their Traffic Aggregation Matrices (TAMs). Palette aims to reduce this variability by regularizing traffic into a common pattern. However, the resulting defended traces can still preserve noticeable differences. More importantly, the regularization process introduces systematic dummy-packet injection patterns that may themselves become learnable by an adaptive adversary. 
+
+
+### Closed-world Evaluation
+
+![Table 2](./images/table2.png)
+
+Table 2 presents a comprehensive comparison of the proposed \D-based WF attacks against conventional WF attacks trained with and without adversarial training (w/ AT and w/o AT, respectively). Without adversarial training (w/o AT), most defenses substantially reduce the classification accuracy of all three attacks, particularly on the DF dataset, where the accuracy of DF, Var-CNN, and NetCLR drops to 0.97–27.54% for most defenses. However, this apparent protection weakens considerably when the attacks are trained with adversarial training (w/ AT). For example, Walkie-Talkie, FRONT, and FRUGAL exhibit accuracies above 95% against all three attacks on the DF dataset, while GAPDiS also yields high accuracies ranging from 88.23% to 95.17%. These results suggest that evaluating defenses solely against conventionally trained attacks can substantially overestimate their robustness. The DAAE-based attacks further expose this limitation: their classification accuracy reaches 97.85% against FRUGAL and exceeds 95% against RegulaTor for all three classifiers on the DF dataset. Although some defenses, such as Palette and Adaptive Tamaraw, exhibit lower accuracy under adversarial training, their effectiveness remains dependent on the attack model, highlighting the importance of evaluating defenses under diverse attacker capabilities.
+The results on GTT23 further reveal that defense effectiveness does not necessarily transfer across datasets. Compared with DF, the accuracy of conventionally trained attacks is generally higher against several defenses on GTT23; for example, FRONT yields accuracies of 35.94% and 52.30% against DF and NetCLR, respectively, while its corresponding accuracies on DF are 27.54% and 25.79%. Adversarial training also substantially improves attack performance against most defenses on GTT23, with accuracies reaching 89.24% for NetCLR against GAPDiS and 86.72% for NetCLR against FRONT. The DAAE-based attacks maintain high accuracy against several defenses, including GAPDiS, FRUGAL, and RegulaTor, although the results vary across classifiers. Notably, RegulaTor and Palette exhibit relatively low accuracy under adversarial training on both datasets, but their \D-based results show that this apparent robustness can be weakened by stronger attack strategies. Overall, these findings indicate that WF defense evaluations should account for both adversarially trained attackers and \D-based attacks, as well as differences between datasets, to provide a more comprehensive assessment of defense robustness.
+
+### Open-world Evaluation
+
+![Table3](./images/table3.png)
+

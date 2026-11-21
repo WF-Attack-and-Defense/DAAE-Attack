@@ -21,7 +21,7 @@ With only **20–30%** paired traces per class for training, DAAE generalizes to
 DAAE/
 ├── README.md
 ├── requirements.txt
-├── run.py                  # End-to-end pipeline
+├── DAAE.md                  # Detailed design and evaluation for the DAAE attack
 └── daae/
     ├── config.py           # Hyperparameters only (no dataset paths)
     ├── cli.py              # Shared --original-root/--defended-root/--output-dir args
@@ -39,7 +39,7 @@ DAAE/
         ├── daae.py         # Baseline Defense-Aware Autoencoder
         ├── fs_daae.py      # Few-Shot DAAE with support-query attention
         ├── losses.py       # Focal BCE + reconstruction loss
-        ├── factory.py      # Model creation / checkpoint loading
+        ├── factory.py      # Model creation/checkpoint loading
         └── classifier.py   # 1D-CNN WF attack model
 ```
 

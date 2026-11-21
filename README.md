@@ -79,22 +79,22 @@ Defaults are tuned for this hardware:
 
 ```bash
 python -u -m daae.train \
-  --original-root /data/dataset/newDataset/GTT23/CW \
-  --defended-root /data/dataset/newDataset/defenses/palette/CW/GTT23 \
+  --original-root ../DF/CW \
+  --defended-root ../defense/palette/CW/DF \
   --output-dir ./results/palette-daae \
-  --num-classes 100 --num-instances 2000 \
-  --train-ratio 0.2 --val-ratio 0.1 \
-  --model fs_daae --alignment-method lcs \
+  --num-classes 95 --num-instances 1000 \
+  --trace-format paired_dir \
+  --train-ratio 0.3 \
   --max-len 10000 \
   --epochs 50 --batch-size 3
 ```
 
-### Defended dataset Recovering
+### Defended dataset recovery
 
 ```
 python -u -m daae.recover \
   --checkpoint ./results/palette-daae/daae_best.pt \
-  --defended-root /data/dataset/newDataset/defenses/palette/CW/GTT23 \
+  --defended-root /data/dataset/newDataset/defenses/palette/CW/DF \
   --output-dir ./results/palette-daae \
   --num-classes 100 --num-instances 2000
 ```

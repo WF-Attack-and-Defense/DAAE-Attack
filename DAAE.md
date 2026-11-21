@@ -254,6 +254,18 @@ After performing the DAAE-based WF attacks, the results further highlight the ro
 
 ### 4.7 Ablation Study
 
-#### 4.7.1 DAAE Evaluation Without Paired Traces
+In this section, we conduct an ablation study to evaluate the effectiveness of the proposed DAAE. As shown in Section 4.4, among the evaluated defense mechanisms, only Regulator, Palette, and Adaptive Tamaraw demonstrate effectiveness and robustness against AT-based attacks. Therefore, we focus our ablation study on these three defenses to provide a more meaningful and precise evaluation of DAAE. For the remaining defenses, the performance differences between AT-based attacks and DAAE-based attacks are relatively small, making them less informative for assessing the contribution of individual components of DAAE.
+
+#### 4.7.1 LCS with and without Burst Feature Specification
+
+![Table 7](./images/table7.png)
+
+In the design of the DAAE, we investigate two LCS-based strategies for learning the relationship between original and defended traffic: (1) applying LCS directly to the entire packet sequence and (2) incorporating burst-level features into the LCS matching process. The former captures similarities at the packet level, whereas the latter additionally exploits burst-level traffic patterns to improve the alignment between original and defended traces. We evaluate both strategies using three WF classifiers (DF, Var-CNN, and NetCLR) on two datasets (DF and GTT23) against three representative defenses. The results are reported in Table 7.
+
+Overall, incorporating burst features substantially improves attack performance across all evaluated datasets, defenses, and classifiers. On the DF dataset, the accuracy improvements range from 22.88 to 36.37 percentage points. In particular, against RegulaTor, adding burst features increases the accuracy of DF, Var-CNN, and NetCLR from 64.43%, 67.80%, and 63.55% to 95.58%, 97.83%, and 97.55%, respectively. Similar improvements are observed against Adaptive Tamaraw, where the accuracy gains range from 24.08 to 27.08 percentage points. These results indicate that burst-level information provides useful structural cues for identifying the correspondence between original and defended traffic.
+
+The improvements are also consistent on the more challenging GTT23 dataset. Across the three defenses and classifiers, incorporating burst features yields accuracy gains ranging from 26.43 to 44.89 percentage points. For example, against Palette, the accuracy of DF increases from 39.82% to 80.97%, while Var-CNN and NetCLR improve from 38.34% and 38.93% to 78.82% and 81.59\%, respectively. Notably, even against RegulaTor and Adaptive Tamaraw, where the baseline LCS approach achieves relatively higher accuracy, burst features still provide substantial gains.
+
+These results demonstrate that applying LCS solely to packet sequences is insufficient to capture the structural correspondence between original and defended traffic fully. Burst features provide complementary information about packet grouping and transmission patterns, enabling more effective sequence alignment under defense-induced traffic transformations. Consequently, we adopt the burst-feature-enhanced LCS strategy in DAAE for subsequent evaluations.
 
 

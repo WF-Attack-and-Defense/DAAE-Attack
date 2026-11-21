@@ -25,7 +25,7 @@ DAAE/
 └── daae/
     ├── config.py           # Hyperparameters only (no dataset paths)
     ├── cli.py              # Shared --original-root/--defended-root/--output-dir args
-    ├── train.py            # Train DAAE / FS-DAAE
+    ├── train.py            # Train FS-DAAE
     ├── recover.py          # Remove dummy packets from defended traces
     ├── evaluate.py         # Recovery + WF attack evaluation
     ├── data/

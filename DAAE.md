@@ -268,7 +268,7 @@ The improvements are also consistent on the more challenging GTT23 dataset. Acro
 
 These results demonstrate that applying LCS solely to packet sequences is insufficient to capture the structural correspondence between original and defended traffic fully. Burst features provide complementary information about packet grouping and transmission patterns, enabling more effective sequence alignment under defense-induced traffic transformations. Consequently, we adopt the burst-feature-enhanced LCS strategy in DAAE for subsequent evaluations.
 
-### 4.7.2 Dataset Selection Ratio Evaluation
+#### 4.7.2 Dataset Selection Ratio Evaluation
 
 ![Table 8](./images/table8.png)
 
@@ -277,5 +277,7 @@ In practical scenarios, collecting paired original and defended traffic traces i
 To investigate this trade-off, we evaluate four dataset selection ratios (0.05, 0.1, 0.2, and 0.3) across three WF classifiers (DF, Var-CNN, and NetCLR), three defenses (RegulaTor, Palette, and Adaptive Tamaraw), and two datasets (DF and GTT23). As shown in Table 8, increasing the selection ratio generally improves attack accuracy across all evaluated settings. For example, under RegulaTor on the DF dataset, DF accuracy increases from 44.32% at a ratio of 0.05 to 95.58% at 0.2. Similar improvements are observed with Var-CNN and NetCLR, whose accuracies reach 97.83% and 97.55%, respectively. These results demonstrate that sufficient paired training data is important for DAAE to learn defense-induced traffic transformations effectively.
 
 However, the marginal benefits diminish when increasing the ratio from 0.2 to 0.3. Across the evaluated settings, the accuracy improvement is generally limited, with several cases showing less than one percentage point of improvement. For instance, under RegulaTor on the DF dataset, DF accuracy increases by only 0.17 percentage points (95.58% to 95.75%), while Var-CNN improves by 0.02 percentage points (97.83% to 97.85%). Similar trends can be observed on GTT23 and against the other defenses. In contrast, increasing the selection ratio from 0.2 to 0.3 requires collecting more training traces, thereby increasing the associated memory and training costs. These results suggest that a selection ratio of 0.2 provides a favorable balance between attack effectiveness and resource consumption. We therefore adopt 0.2 as the default selection ratio for DAAE in the remaining experiments.
+
+#### 4.7.3 Dataset Selection Ratio Evaluation
 
 

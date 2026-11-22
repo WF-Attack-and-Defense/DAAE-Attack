@@ -286,9 +286,17 @@ To investigate the contribution of the support bank, we evaluate FS-DAAE with an
 
 The improvements are consistent across different defenses and classifiers. For example, against RegulaTor on DF, DF and Var-CNN accuracy increase from 84.49% and 86.74% to 95.58% and 97.83%, respectively. Similar improvements are observed against Palette and Adaptive Tamaraw on both datasets. These results demonstrate that the support bank provides valuable information for identifying defense-induced dummy packet positions, enabling FS-DAAE to recover more informative traffic patterns and improve subsequent WF classification. Overall, the support bank is an important component of DAAE, contributing consistently to its effectiveness across different defenses and traffic collection settings.
 
-#### 4.7.3 No Focal Loss During the DAAE Training Phase
+#### 4.7.4 Impact of the Focal Loss Function
 
 ![Table 10](./images/table10.png)
+
+During the training phase of DAAE, we employ the Focal Loss function to calculate the training loss. To evaluate its effectiveness, we compare the performance of DAAE with and without Focal Loss across three WF classifiers (DF, Var-CNN, and NetCLR), three representative defenses, and two datasets (DF and GTT23). The results are presented in Table 10.
+
+Overall, incorporating Focal Loss consistently improves attack accuracy across all evaluated settings. On the DF dataset, the accuracy gains range from 19.75 to 34.84 percentage points. In particular, under Adaptive Tamaraw, the accuracy of Var-CNN increases from 60.08% to 94.92%, representing a gain of 34.84 percentage points. Averaged across all defense-classifier combinations, incorporating Focal Loss increases accuracy from 68.36% to 91.99%, an improvement of 23.63 percentage points.
+
+Similar improvements are observed on the GTT23 dataset, where accuracy increases by 15.83 to 24.68 percentage points across the evaluated settings. For example, against Adaptive Tamaraw, NetCLR accuracy improves from 59.65% to 84.33%. On average, Focal Loss increases accuracy from 62.40% to 82.32%, corresponding to a gain of 19.91 percentage points.
+
+These results demonstrate that Focal Loss plays an important role in improving DAAE's ability to learn defense-induced traffic transformations. By emphasizing difficult training examples, it helps the model learn more discriminative representations of the transformations introduced by different defenses. Consequently, we adopt Focal Loss in the subsequent DAAE evaluations.
 
 
 

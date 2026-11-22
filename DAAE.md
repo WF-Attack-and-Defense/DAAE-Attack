@@ -278,6 +278,12 @@ To investigate this trade-off, we evaluate four dataset selection ratios (0.05, 
 
 However, the marginal benefits diminish when increasing the ratio from 0.2 to 0.3. Across the evaluated settings, the accuracy improvement is generally limited, with several cases showing less than one percentage point of improvement. For instance, under RegulaTor on the DF dataset, DF accuracy increases by only 0.17 percentage points (95.58% to 95.75%), while Var-CNN improves by 0.02 percentage points (97.83% to 97.85%). Similar trends can be observed on GTT23 and against the other defenses. In contrast, increasing the selection ratio from 0.2 to 0.3 requires collecting more training traces, thereby increasing the associated memory and training costs. These results suggest that a selection ratio of 0.2 provides a favorable balance between attack effectiveness and resource consumption. We therefore adopt 0.2 as the default selection ratio for DAAE in the remaining experiments.
 
-#### 4.7.3 Dataset Selection Ratio Evaluation
+#### 4.7.3 Disable Support Bank during the Defense Dataset Recovery
+
+![Table 9](./images/table9.png)
+
+In the design of the DAAE, a support bank is applied to save the LCS-extracted dummy packet injection positions for different features. The support bank will help the trained FS-DAAE to remove the possible dummy packet from the defended traces. In this section, we will disable the support to check the performance with the FS-DAAE model only. 
+
+
 
 

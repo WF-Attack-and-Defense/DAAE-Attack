@@ -309,7 +309,7 @@ Table 5: Parameter settings for evaluating DAAE.
 
 ![Table5](./images/table5.png)
 
-All experiments are conducted using PyTorch 2.8.0 and Python 3.10. To run and evaluate the performance of DAAE, training and evaluation were performed on a system equipped with an NVIDIA RTX PRO 6000 GPU (96 GB VRAM), an Intel Ultra 9 285K CPU, and 192 GB of system memory. The default parameter configurations are summarized in Table 5. We partition the dataset into training, validation, and testing sets using an 8:1:1 ratio. All parameter tuning and spatiotemporal analyses are conducted exclusively on the validation set to prevent information leakage from the test set and ensure an unbiased evaluation.
+All experiments are conducted using PyTorch 2.8.0 and Python 3.10. To run and evaluate the performance of DAAE, training and evaluation were performed on a system equipped with an NVIDIA RTX PRO 6000 GPU (96 GB VRAM), an Intel Ultra 9 285K CPU, and 192 GB of system memory. The default parameter configurations are summarized in Table 5. We partition the dataset into training, validation, and testing sets using a 9:1 ratio. All parameter tuning and spatiotemporal analyses are conducted exclusively on the validation set to prevent information leakage from the test set and ensure an unbiased evaluation.
 
 ### 4.2 Detailed Dataset
 We conduct experiments on two widely used datasets: DF and GTT23. The DF dataset contains both closed-world and open-world data. In the DF closed-world dataset, traffic traces are collected from the homepages of the top 100 Alexa-ranked websites, of which 95 sites remain after preprocessing, with 1,000 instances per site. 

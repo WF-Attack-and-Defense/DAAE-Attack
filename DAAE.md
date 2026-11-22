@@ -286,6 +286,10 @@ To investigate the contribution of the support bank, we evaluate FS-DAAE with an
 
 The improvements are consistent across different defenses and classifiers. For example, against RegulaTor on DF, DF and Var-CNN accuracy increase from 84.49% and 86.74% to 95.58% and 97.83%, respectively. Similar improvements are observed against Palette and Adaptive Tamaraw on both datasets. These results demonstrate that the support bank provides valuable information for identifying defense-induced dummy packet positions, enabling FS-DAAE to recover more informative traffic patterns and improve subsequent WF classification. Overall, the support bank is an important component of DAAE, contributing consistently to its effectiveness across different defenses and traffic collection settings.
 
+#### 4.7.3 No Focal Loss During the DAAE Training Phase
+
+![Table 10](./images/table10.png)
+
 
 
 

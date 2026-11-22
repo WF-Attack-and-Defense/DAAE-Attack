@@ -301,48 +301,93 @@ These results demonstrate that Focal Loss plays an important role in improving D
 ## References
 
 [1] Khaled Al-Naami, Amir El-Ghamry, Md Shihabul Islam, Latifur Khan, Bhavani Thuraisingham, Kevin W. Hamlen, Mohammed F. Alrahmawy, and Magdi Zakria Rashad. 2021. BiMorphing: A Bi-Directional Bursting Defense against Website Fingerprinting Attacks. IEEE Trans. Dependable Secur. Comput. 18, 2 (2021), 505–517. doi:10.1109/TDSC.2019.2907240
+
 [2] Alireza Bahramali, Ardavan Bozorgi, and Amir Houmansadr. 2023. Realistic Website Fingerprinting By Augmenting Network Traces. In Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security, CCS 2023, November 26-30, 2023, Weizhi Meng, Christian Damsgaard Jensen, Cas Cremers, and Engin Kirda (Eds.). ACM, Copenhagen, Denmark, 1035–1049. doi:10.1145/3576915.3616639
+
 [3] Sanjit Bhat, David Lu, Albert Kwon, and Srinivas Devadas. 2019. Var-CNN: A Data-Efficient Website Fingerprinting Attack Based on Deep Learning. Proc. Priv. Enhancing Technol. 2019, 4 (2019), 292–310. doi:10.2478/POPETS-2019-0070
+
 [4] Xiang Cai, Rishab Nithyanand, Tao Wang, Rob Johnson, and Ian Goldberg. 2014. A Systematic Approach to Developing and Evaluating Website Fingerprinting Defenses. In Proceedings of the 2014 ACM SIGSAC Conference on Computer and Communications Security, November 3-7, 2014, Gail-Joon Ahn, Moti Yung, and Ninghui Li (Eds.). ACM, Scottsdale, AZ, USA, 227–238. doi:10.1145/2660267.2660362
+
 [5] Eric Chan-Tin, Taejoon Kim, and Jinoh Kim. 2018. Website Fingerprinting Attack Mitigation Using Traffic Morphing. In 38th IEEE International Conference on Distributed Computing Systems, ICDCS 2018, July 2-6, 2018. IEEE Computer Society, Vienna, Austria, 1575–1578. doi:10.1109/ICDCS.2018.00174
+
 [6] Xinhao Deng, Qilei Yin, Zhuotao Liu, Xiyuan Zhao, Qi Li, Mingwei Xu, Ke Xu, and Jianping Wu. 2023. Robust Multi-tab Website Fingerprinting Attacks in the Wild. In 44th IEEE Symposium on Security and Privacy, SP 2023, May 21-25, 2023. IEEE, San Francisco, CA, USA, 1005–1022. doi:10.1109/SP46215.2023.10179464
+
 [7] Xinhao Deng, Yixiang Zhang, Qi Li, Zhuotao Liu, Yabo Wang, and Ke Xu. 2026. Enhancing Website Fingerprinting Attacks against Traffic Drift. In 33rd Annual Network and Distributed System Security Symposium, NDSS 2026, February 23-27, 2026. The Internet Society, San Diego, California, USA, 1–18. [https://www.ndss-symposium.org/ndss-paper/enhancing-website-fingerprinting-attacks-against-traffic-drift/](https://www.ndss-symposium.org/ndss-paper/enhancing-website-fingerprinting-attacks-against-traffic-drift/)
+
 [8] Xianwen Deng, Ruijie Zhao, Yanhao Wang, Mingwei Zhan, Zhi Xue, and Yijun Wang. 2025. Countmamba: A Generalized Website Fingerprinting Attack via Coarse-Grained Representation and Fine-Grained Prediction. In IEEE Symposium on Security and Privacy, SP 2025, May 12-15, 2025, Marina Blanton, William Enck, and Cristina Nita-Rotaru (Eds.). IEEE, San Francisco, CA, USA, 1419–1437. doi:10.1109/SP61157.2025.00154
+
 [9] Kevin P. Dyer, Scott E. Coull, Thomas Ristenpart, and Thomas Shrimpton. 2012. Peek-a-Boo, I Still See You: Why Efficient Traffic Analysis Countermeasures Fail. In IEEE Symposium on Security and Privacy, SP 2012, 21-23 May 2012. IEEE Computer Society, San Francisco, California, USA, 332–346. doi:10.1109/SP.2012.28
+
 [10] David Goldschlag, Michael Reed, and Paul Syverson. 1999. Onion routing. Commun. ACM 42, 2 (1999), 39–41.
+
 [11] Jiajun Gong and Tao Wang. 2020. Zero-delay Lightweight Defenses against Website Fingerprinting. In 29th USENIX Security Symposium, USENIX Security 2020, August 12-14, 2020, Srdjan Capkun and Franziska Roesner (Eds.). USENIX Association, Boston, MA, USA, 717–734. [https://www.usenix.org/conference/usenixsecurity20/presentation/gong](https://www.usenix.org/conference/usenixsecurity20/presentation/gong)
+
 [12] Jiajun Gong, Wuqi Zhang, Charles Zhang, and Tao Wang. 2024. WFDefProxy: Real World Implementation and Evaluation of Website Fingerprinting Defenses. IEEE Trans. Inf. Forensics Secur. 19 (2024), 1357–1371. doi:10.1109/TIFS.2023.3327662
+
 [13] James K. Holland and Nicholas Hopper. 2022. RegulaTor: A Straightforward Website Fingerprinting Defense. Proc. Priv. Enhancing Technol. 2022, 2 (2022), 344–362. doi:10.2478/POPETS-2022-0049
+
 [14] Chengshang Hou, Junzheng Shi, Mingxin Cui, Mengyan Liu, and Jing Yu. 2021. Universal Website Fingerprinting Defense Based on Adversarial Examples. In 20th IEEE International Conference on Trust, Security and Privacy in Computing and Communications, TrustCom 2021, October 20-22, 2021. IEEE, Shenyang, China, 99–106. doi:10.1109/TRUSTCOM53373.2021.00031
+
 [15] Rob Jansen. 2026. CELLSHIFT: RTT-Aware Trace Transduction for Real-World Website Fingerprinting. In 33rd Annual Network and Distributed System Security Symposium, NDSS 2026, February 23-27, 2026. The Internet Society, San Diego, California, USA, 1–18. [https://www.ndss-symposium.org/ndss-paper/cellshift-rtt-aware-trace-transduction-for-real-world-website-fingerprinting/](https://www.ndss-symposium.org/ndss-paper/cellshift-rtt-aware-trace-transduction-for-real-world-website-fingerprinting/)
+
 [16] Rob Jansen, Ryan Wails, and Aaron Johnson. 2026. A Measurement of Genuine Tor Traces for Realistic Website Fingerprinting. In Passive and Active Measurement - 27th International Conference, PAM 2026, March 23-25, 2026, Proceedings (Lecture Notes in Computer Science, Vol. 16477), Simone Ferlin-Reiter, Romain Fontugne, and Johanna Ullrich (Eds.). Springer, Virtual Event, 277–293. doi:10.1007/978-3-032-18268-5_13
+
 [17] Marc Juarez, Sadia Afroz, Gunes Acar, Claudia Díaz, and Rachel Greenstadt. 2014. A Critical Evaluation of Website Fingerprinting Attacks. In Proceedings of the 2014 ACM SIGSAC Conference on Computer and Communications Security, November 3-7, 2014, Gail-Joon Ahn, Moti Yung, and Ninghui Li (Eds.). ACM, Scottsdale, AZ, USA, 263–274. doi:10.1145/2660267.2660368
+
 [18] Marc Juarez, Mohsen Imani, Mike Perry, Claudia Díaz, and Matthew Wright. 2016. Toward an Efficient Website Fingerprinting Defense. In Computer Security ESORICS 2016 - 21st European Symposium on Research in Computer Security, September 26-30, 2016, Proceedings, Part I (Lecture Notes in Computer Science, Vol. 9878), Ioannis G. Askoxylakis, Sotiris Ioannidis, Sokratis K. Katsikas, and Catherine Meadows (Eds.). Springer, Heraklion, Greece, 27–46. doi:10.1007/978-3-319-45744-4_2
+
 [19] Khashayar Khajavi and Tao Wang. 2026. Lightening the Load: A Cluster-Based Framework for A Lower-Overhead, Provable Website Fingerprinting Defense. In 33rd Annual Network and Distributed System Security Symposium, NDSS 2026, February 23-27, 2026. The Internet Society, San Diego, California, USA, 1–18. [https://www.ndss-symposium.org/ndss-paper/lightening-the-load-a-cluster-based-framework-for-a-lower-overhead-provable-website-fingerprinting-defense/](https://www.ndss-symposium.org/ndss-paper/lightening-the-load-a-cluster-based-framework-for-a-lower-overhead-provable-website-fingerprinting-defense/)
+
 [20] Albert Kwon, Mashael AlSabah, David Lazar, Marc Dacier, and Srinivas Devadas. 2015. Circuit Fingerprinting Attacks: Passive Deanonymization of Tor Hidden Services. In 24th USENIX Security Symposium, USENIX Security 15, August 12-14, 2015, Jaeyeon Jung and Thorsten Holz (Eds.). USENIX Association, Washington, D.C., USA, 287–302. [https://www.usenix.org/conference/usenixsecurity15/technical-sessions/presentation/kwon](https://www.usenix.org/conference/usenixsecurity15/technical-sessions/presentation/kwon)
+
 [21] Ding Li, Yuefei Zhu, Minghao Chen, and Jue Wang. 2022. Minipatch: Undermining DNN-Based Website Fingerprinting With Adversarial Patches. IEEE Trans. Inf. Forensics Secur. 17 (2022), 2437–2451. doi:10.1109/TIFS.2022.3186743
+
 [22] Zhen Ling, Gui Xiao, Lan Luo, Rong Wang, Xiangyu Xu, and Guangchi Liu. 2024. WFGuard: an Effective Fuzzing-testing-based Traffic Morphing Defense against Website Fingerprinting. In IEEE INFOCOM 2024 - IEEE Conference on Computer Communications, May 20-23, 2024. IEEE, Vancouver, BC, Canada, 441–450. doi:10.1109/INFOCOM52122.2024.10621121
+
 [23] Ling Liu, Ning Hu, Chun Shan, Yu Jiang, and Xin Liu. 2023. SMART: A lightweight and reliable multi-path transmission model against website fingerprinting attacks. Electronics 12, 7 (2023), 1668.
+
 [24] Nate Mathews, James K. Holland, Nicholas Hopper, and Matthew Wright. 2024. Laserbeak: Evolving Website Fingerprinting Attacks With Attention and Multi-Channel Feature Representation. IEEE Trans. Inf. Forensics Secur. 19 (2024), 9285–9300. doi:10.1109/TIFS.2024.3468171
+
 [25] Nate Mathews, James K. Holland, Se Eun Oh, Mohammad Saidur Rahman, Nicholas Hopper, and Matthew Wright. 2023. SoK: A Critical Evaluation of Efficient Website Fingerprinting Defenses. In 44th IEEE Symposium on Security and Privacy, SP 2023, May 21-25, 2023. IEEE, San Francisco, CA, USA, 969–986. doi:10.1109/SP46215.2023.10179289
+
 [26] Se Eun Oh, Nate Mathews, Mohammad Saidur Rahman, Matthew Wright, and Nicholas Hopper. 2021. GANDALF: GAN for Data-Limited Fingerprinting. Proc. Priv. Enhancing Technol. 2021, 2 (2021), 305–322. doi:10.2478/POPETS-2021-0029
+
 [27] Andriy Panchenko, Lukas Niessen, Andreas Zinnen, and Thomas Engel. 2011. Website fingerprinting in onion routing based anonymization networks. In Proceedings of the 10th annual ACM workshop on Privacy in the electronic society, WPES 2011, October 17, 2011, Yan Chen and Jaideep Vaidya (Eds.). ACM, Chicago, IL, USA, 103–114. doi:10.1145/2046556.2046570
+
 [28] Litao Qiao, Bang Wu, Heng Li, Cuiying Gao, Wei Yuan, and Xiapu Luo. 2024. Trace-agnostic and Adversarial Training-resilient Website Fingerprinting Defense. In IEEE INFOCOM 2024 IEEE Conference on Computer Communications, May 20-23, 2024. IEEE, Vancouver, BC, Canada, 211–220. doi:10.1109/INFOCOM52122.2024.10621205
+
 [29] Mohammad Saidur Rahman, Mohsen Imani, Nate Mathews, and Matthew Wright. 2021. Mockingbird: Defending Against Deep-Learning-Based Website Fingerprinting Attacks With Adversarial Traces. IEEE Trans. Inf. Forensics Secur. 16 (2021), 1594–1609. doi:10.1109/TIFS.2020.3039691
+
 [30] Mohammad Saidur Rahman, Payap Sirinam, Nate Mathews, Kantha Girish Gangadhara, and Matthew Wright. 2020. Tik-Tok: The Utility of Packet Timing in Website Fingerprinting Attacks. Proc. Priv. Enhancing Technol. 2020, 3 (2020), 5–24. doi:10.2478/POPETS-2020-0043
+
 [31] Vera Rimmer, Davy Preuveneers, Marc Juarez, Tom van Goethem, and Wouter Joosen. 2018. Automated Website Fingerprinting through Deep Learning. In 25th Annual Network and Distributed System Security Symposium, NDSS 2018, February 18-21, 2018. The Internet Society, San Diego, California, USA, 1–15. [https://www.ndss-symposium.org/wp-content/uploads/2018/02/ndss2018_03A-1_Rimmer_paper.pdf](https://www.ndss-symposium.org/wp-content/uploads/2018/02/ndss2018_03A-1_Rimmer_paper.pdf)
+
 [32] Meng Shen, Kexin Ji, Zhenbo Gao, Qi Li, Liehuang Zhu, and Ke Xu. 2023. Subverting Website Fingerprinting Defenses with Robust Traffic Representation. In 32nd USENIX Security Symposium, USENIX Security 2023, August 9-11, 2023, Joseph A. Calandrino and Carmela Troncoso (Eds.). USENIX Association, Anaheim, CA, USA, 607–624. [https://www.usenix.org/conference/usenixsecurity23/presentation/shen-meng](https://www.usenix.org/conference/usenixsecurity23/presentation/shen-meng)
+
 [33] Meng Shen, Kexin Ji, Jinhe Wu, Qi Li, Xiangdong Kong, Ke Xu, and Liehuang Zhu. 2024. Real-Time Website Fingerprinting Defense via Traffic Cluster Anonymization. In IEEE Symposium on Security and Privacy, SP 2024, May 19-23, 2024. IEEE, San Francisco, CA, USA, 3238–3256. doi:10.1109/SP54263.2024.00247
+
 [34] Meng Shen, Jinhe Wu, Junyu Ai, Qi Li, Chenchen Ren, Ke Xu, and Liehuang Zhu. 2025. Swallow: A Transfer-Robust Website Fingerprinting Attack via Consistent Feature Learning. In Proceedings of the 2025 ACM SIGSAC Conference on Computer and Communications Security, CCS 2025, October 13-17, 2025, Chun-Ying Huang, Jyh-Cheng Chen, Shiuh-Pyng Shieh, David Lie, and Véronique Cortier (Eds.). ACM, Taipei, Taiwan, 1574–1588. doi:10.1145/3719027.3744795
+
 [35] Payap Sirinam, Mohsen Imani, Marc Juarez, and Matthew Wright. 2018. Deep Fingerprinting: Undermining Website Fingerprinting Defenses with Deep Learning. In Proceedings of the 2018 ACM SIGSAC Conference on Computer and Communications Security, CCS 2018, October 15-19, 2018, David Lie, Mohammad Mannan, Michael Backes, and XiaoFeng Wang (Eds.). ACM, Toronto, ON, Canada, 1928–1943. doi:10.1145/3243734.3243768
+
 [36] Boyu Sun, Wenyuan Yang, Mengqi Yan, Yuesheng Zhu, and Zhiqiang Bai. 2022. A Practical Website Fingerprinting Defense Approach with Universal Adversarial Perturbations. In 7th International Conference on Computer and Communication Systems, ICCCS 2022, April 22-25, 2022. IEEE, Wuhan, China, 752–760. doi:10.1109/ICCCS55155.2022.9846237
+
 [37] The Tor Project. 2026. Research Safety Board. [https://research.torproject.org/safetyboard/](https://research.torproject.org/safetyboard/). Accessed: 2026-08-19.
+
 [38] Tor Project. 2022. Pluggable Transport Specification (Version 1). [https://spec.torproject.org/pt-spec](https://spec.torproject.org/pt-spec). Tor Specifications.
+
 [39] Rong Wang, Zhen Ling, Guangchi Liu, Shaofeng Li, Junzhou Luo, and Xinwen Fu. 2026. Cease at the Ultimate Goodness: Towards Efficient Website Fingerprinting Defense via Iterative Mutual Information Minimization. In 33rd Annual Network and Distributed System Security Symposium, NDSS 2026, February 23-27, 2026. The Internet Society, San Diego, California, USA, 1–20. [https://www.ndss-symposium.org/ndss-paper/cease-at-the-ultimate-goodness-towards-efficient-website-fingerprinting-defense-via-iterative-mutual-information-minimization/](https://www.ndss-symposium.org/ndss-paper/cease-at-the-ultimate-goodness-towards-efficient-website-fingerprinting-defense-via-iterative-mutual-information-minimization/)
+
 [40] Tao Wang, Xiang Cai, Rishab Nithyanand, Rob Johnson, and Ian Goldberg. 2014. Effective Attacks and Provable Defenses for Website Fingerprinting. In Proceedings of the 23rd USENIX Security Symposium, August 20-22, 2014, Kevin Fu and Jaeyeon Jung (Eds.). USENIX Association, San Diego, CA, USA, 143–157. [https://www.usenix.org/conference/usenixsecurity14/technical-sessions/presentation/wang_tao](https://www.usenix.org/conference/usenixsecurity14/technical-sessions/presentation/wang_tao)
+
 [41] Tao Wang and Ian Goldberg. 2013. Improved website fingerprinting on Tor. In Proceedings of the 12th annual ACM Workshop on Privacy in the Electronic Society, WPES 2013, November 4, 2013, Ahmad-Reza Sadeghi and Sara Foresti (Eds.). ACM, Berlin, Germany, 201–212. doi:10.1145/2517840.2517851
+
 [42] Tao Wang and Ian Goldberg. 2016. On Realistically Attacking Tor with Website Fingerprinting. Proc. Priv. Enhancing Technol. 2016, 4 (2016), 21–36. doi:10.1515/POPETS-2016-0027
+
 [43] Tao Wang and Ian Goldberg. 2017. Walkie-Talkie: An Efficient Defense Against Passive Website Fingerprinting Attacks. In 26th USENIX Security Symposium, USENIX Security 2017, August 16-18, 2017, Engin Kirda and Thomas Ristenpart (Eds.). USENIX Association, Vancouver, BC, Canada, 1375–1390. [https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/wang-tao](https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/wang-tao)
+
 [44] Ruotian Xie, Kun Xie, Pengcheng Zhao, Jiajun He, Xin Zeng, Jigang Wen, Yong Xie, Wei Liang, and Gaogang Xie. 2025. GAPDIS: Gradient-Assisted Perturbation Design via Sequence Editing for Website Fingerprinting Defense. In Proceedings of the 2025 ACM SIGSAC Conference on Computer and Communications Security, CCS 2025, October 13-17, 2025, Chun-Ying Huang, Jyh-Cheng Chen, Shiuh-Pyng Shieh, David Lie, and Véronique Cortier (Eds.). ACM, Taipei, Taiwan, 3012–3026. doi:10.1145/3719027.3765084
+
 [45] Xiyuan Zhao, Xinhao Deng, Qi Li, Yunpeng Liu, Zhuotao Liu, Kun Sun, and Ke Xu. 2024. Towards Fine-Grained Webpage Fingerprinting at Scale. In Proceedings of the 2024 on ACM SIGSAC Conference on Computer and Communications Security, CCS 2024, October 14-18, 2024, Bo Luo, Xiaojing Liao, Jun Xu, Engin Kirda, and David Lie (Eds.). ACM, Salt Lake City, UT, USA, 423–436. doi:10.1109/SP61157.2025.00154
+
 [46] Qiang Zhou, Liangmin Wang, Huijuan Zhu, Tong Lu, and Victor S. Sheng. 2024. WF-Transformer: Learning Temporal Features for Accurate Anonymous Traffic Identification by Using Transformer Networks. IEEE Trans. Inf. Forensics Secur. 19 (2024), 30–43. doi:10.1109/TIFS.2023.3318966

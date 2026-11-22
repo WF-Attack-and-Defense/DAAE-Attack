@@ -278,11 +278,13 @@ To investigate this trade-off, we evaluate four dataset selection ratios (0.05, 
 
 However, the marginal benefits diminish when increasing the ratio from 0.2 to 0.3. Across the evaluated settings, the accuracy improvement is generally limited, with several cases showing less than one percentage point of improvement. For instance, under RegulaTor on the DF dataset, DF accuracy increases by only 0.17 percentage points (95.58% to 95.75%), while Var-CNN improves by 0.02 percentage points (97.83% to 97.85%). Similar trends can be observed on GTT23 and against the other defenses. In contrast, increasing the selection ratio from 0.2 to 0.3 requires collecting more training traces, thereby increasing the associated memory and training costs. These results suggest that a selection ratio of 0.2 provides a favorable balance between attack effectiveness and resource consumption. We therefore adopt 0.2 as the default selection ratio for DAAE in the remaining experiments.
 
-#### 4.7.3 Disable Support Bank during the Defense Dataset Recovery
+#### 4.7.3 Impact of the Support Bank
 
 ![Table 9](./images/table9.png)
 
-In the design of the DAAE, a support bank is applied to save the LCS-extracted dummy packet injection positions for different features. The support bank will help the trained FS-DAAE to remove the possible dummy packet from the defended traces. In this section, we will disable the support to check the performance with the FS-DAAE model only. 
+To investigate the contribution of the support bank, we evaluate FS-DAAE with and without support bank assistance during the defense dataset recovery phase. The support bank stores LCS-extracted dummy packet injection positions for different traffic features, providing additional information to identify and remove likely dummy packets from defended traces. As shown in Table 9, enabling the support bank consistently improves attack accuracy across all evaluated defenses, classifiers, and datasets. Specifically, the average accuracy increases from 79.35% to 92.44% on DF and from 67.35% to 82.23% on GTT23, representing improvements of 13.09 and 14.88 percentage points, respectively.
+
+The improvements are consistent across different defenses and classifiers. For example, against RegulaTor on DF, DF and Var-CNN accuracy increase from 84.49% and 86.74% to 95.58% and 97.83%, respectively. Similar improvements are observed against Palette and Adaptive Tamaraw on both datasets. These results demonstrate that the support bank provides valuable information for identifying defense-induced dummy packet positions, enabling FS-DAAE to recover more informative traffic patterns and improve subsequent WF classification. Overall, the support bank is an important component of DAAE, contributing consistently to its effectiveness across different defenses and traffic collection settings.
 
 
 

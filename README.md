@@ -314,7 +314,7 @@ All experiments are conducted using PyTorch 2.8.0 and Python 3.10. To run and ev
 ### 4.2 Detailed Dataset
 We conduct experiments on two widely used datasets: DF and GTT23. The DF dataset contains both closed-world and open-world data. In the DF closed-world dataset, traffic traces are collected from the homepages of the top 100 Alexa-ranked websites, of which 95 sites remain after preprocessing, with 1,000 instances per site. 
 In the open-world dataset, the unmonitored set is constructed from websites ranked within Alexa's top 50,000, excluding those used in the closed-world setting, resulting in 40,716 sites with one instance per site. All traces are collected using the Tor Browser Crawler, with network traffic captured independently via *tcpdump*.
-The GTT23 dataset is the first large-scale genuine website fingerprinting dataset collected from a Tor exit relay, containing approximately ($1.4\times10^{7}$) website visits from over ($1.1\times10^{6}$) domains. We use CELLSHIFT to construct the closed-world dataset with 100 domains, each containing 2,000 instances, and an additional ($1.0\times10^{5}$) domains for the open-world evaluation. 
+The GTT23 dataset is the first large-scale genuine website fingerprinting dataset collected from a Tor exit relay, containing approximately ($1.4\times10^{7}$) website visits from over ($1.1x10^{6}$) domains. We use CELLSHIFT to construct the closed-world dataset with 100 domains, each containing 2,000 instances, and an additional ($1.0\times10^{5}$) domains for the open-world evaluation. 
 
 
 ### 4.3 DAAE Decoding Strategy

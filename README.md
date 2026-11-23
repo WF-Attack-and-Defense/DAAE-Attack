@@ -19,9 +19,8 @@ With only **20–30%** paired traces per class for training, DAAE generalizes to
 
 ```
 DAAE/
-├── README.md
+├── README.md               # Running command, detailed design and evaluation for the DAAE attack
 ├── requirements.txt
-├── DAAE.md                  # Detailed design and evaluation for the DAAE attack
 └── daae/
     ├── config.py           # Hyperparameters only (no dataset paths)
     ├── cli.py              # Shared --original-root/--defended-root/--output-dir args

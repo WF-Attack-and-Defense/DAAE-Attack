@@ -150,7 +150,7 @@ $$
 w = [d_1, d_2, \ldots, d_N]
 $$
 
-Here, $N$ is the total number of website packets observed during the session. $d_i \in \{+1, -1\}$ denotes the direction of the $i$-th packet. In particular, $+1$ denotes an outgoing packet, and $-1$ denotes an incoming packet.
+Here, $N$ is the total number of website packets observed during the session. $d_i \in \{+1, -1\}$ denotes the direction of the $i$ -th packet. In particular, $+1$ denotes an outgoing packet, and $ -1$ denotes an incoming packet.
 
 Let $\mathcal{W}$ denote the monitored websites and $\mathcal{X}$ denote the space of observable traffic. An adversary aims to learn a classification model:
 
